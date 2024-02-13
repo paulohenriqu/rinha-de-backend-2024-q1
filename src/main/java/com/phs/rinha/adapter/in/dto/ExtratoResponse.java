@@ -1,5 +1,7 @@
 package com.phs.rinha.adapter.in.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -8,16 +10,18 @@ public record ExtratoResponse(
         List<Transacao> ultimas_transacoes
 ) {
 
-    record Saldo(
+    public record Saldo(
             long total,
             long limite,
+            @JsonProperty("data_extrato")
             ZonedDateTime dataExtrato
     ){}
 
-    record Transacao(
+    public record Transacao(
             long valor,
             TipoTransacao tipo,
             String descricao,
+            @JsonProperty("realizada_em")
             ZonedDateTime realizadaEm
 
     ){}

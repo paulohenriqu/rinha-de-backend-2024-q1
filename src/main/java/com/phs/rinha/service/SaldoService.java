@@ -1,6 +1,7 @@
 package com.phs.rinha.service;
 
 import com.phs.rinha.adapter.in.dto.ClienteServiceResponse;
+import com.phs.rinha.adapter.in.dto.ExtratoServiceResponse;
 import com.phs.rinha.adapter.in.dto.TipoTransacao;
 import com.phs.rinha.adapter.in.dto.TransactionRequest;
 import com.phs.rinha.adapter.out.ClienteRepository;
@@ -19,6 +20,8 @@ public class SaldoService {
     TransacaoRepository transacaoRepository;
     @Autowired
     ClienteService clienteService;
+
+    private static int NUMBER_OF_TRANSACTIONS = 10;
 
     public Mono<ClienteServiceResponse> processTransaction(int clienteId, TransactionRequest transacao){
         return clienteService.getClienteById(clienteId)
@@ -42,6 +45,16 @@ public class SaldoService {
                         Mono.just(
                         new ClienteServiceResponse(null, ClienteServiceResponse.Result.NOT_FOUND)
                         )
+                );
+    }
+
+    public Mono<ExtratoServiceResponse> getTransactions(int clienteId){
+        return clienteRepository.findById(clienteId)
+                .flatMap(cliente -> transacaoRepository.finLastTransactions(clienteId,NUMBER_OF_TRANSACTIONS)
+                         .collectList()
+                         .flatMap(txs -> Mono.just(new ExtratoServiceResponse(cliente, txs, ExtratoServiceResponse.Result.SUCCESS) )))
+                .switchIfEmpty(
+                  Mono.just(new ExtratoServiceResponse(null, null, ExtratoServiceResponse.Result.NOT_FOUND))
                 );
     }
 }

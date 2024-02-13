@@ -6,6 +6,8 @@ import com.phs.rinha.service.SaldoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
@@ -22,6 +24,7 @@ public class ClientController {
     private SaldoService saldoService;
     @Autowired
     private TransacaoRepository transacaoRepository;
+
 
     @PostMapping("/{id}/transacoes")
     public Mono<SaldoResponse> createTransaction(@PathVariable int id, @Valid @RequestBody TransactionRequest transacao){

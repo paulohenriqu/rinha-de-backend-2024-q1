@@ -1,14 +1,13 @@
 package com.phs.rinha.adapter.in.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 
 public record TransactionRequest(
-        @Positive
+        @Min(value = 0L, message = "O valor precisa ser positivo")
         long valor,
         @NotNull
         TipoTransacao tipo,
-        @NotBlank
+        @NotNull
+        @Size(min = 1, max = 10)
         String descricao
 ) { }

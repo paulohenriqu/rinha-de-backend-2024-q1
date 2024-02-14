@@ -51,7 +51,7 @@ public class ClientController {
                    var transacoesDTO = extratoServiceResponse.transacoes().stream()
                            .map(tx -> {
                                var tipo = TipoTransacao.valueOf(String.valueOf(tx.tipo()).toUpperCase());
-                               return new ExtratoResponse.Transacao(tx.valor(), tipo, tx.descricao(), tx.realizada_em().withZoneSameInstant(ZoneOffset.UTC));
+                               return new ExtratoResponse.Transacao(tx.valor(), tipo, tx.descricao(), tx.realizada_em().atZoneSameInstant(ZoneOffset.UTC));
                            })
                            .toList();
 

@@ -21,7 +21,7 @@ public class SaldoService {
     @Autowired
     ClienteService clienteService;
 
-    private static int NUMBER_OF_TRANSACTIONS = 10;
+    private static final int NUMBER_OF_TRANSACTIONS = 10;
 
     public Mono<ClienteServiceResponse> processTransaction(int clienteId, TransactionRequest transacao){
         return clienteService.getClienteById(clienteId)

@@ -3,7 +3,8 @@ package com.phs.rinha.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.time.ZonedDateTime;
+import java.time.OffsetDateTime;
+
 
 @Table("transacoes")
 public record Transacao(
@@ -13,5 +14,5 @@ public record Transacao(
         String descricao,
         char tipo,
         int cliente_id,
-        ZonedDateTime realizada_em
+        OffsetDateTime realizada_em
 ) {}

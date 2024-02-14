@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
   api01: &api
-    image: phs/rinha-webflux
+    image: phchaos/rinha-2024-q1-webflux
     hostname: api01
     environment:
       - SPRING_R2DBC_URL=r2dbc:postgresql://db:5432/rinha
